@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-import this
+import numpy as np
+import matplotlib as plt
 #così importi le librerie
 
 a=1
@@ -21,5 +22,9 @@ if condizione_if:
     1+1
 else:
     1+2
+
+#così fai i grafichini belli
+fig, ax = plt.subplots()
+ax.plot(np.exp(np.random.rand(100)*10), ".r")
 
 

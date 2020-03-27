@@ -1,32 +1,50 @@
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import scipy.misc as sp #scipy won't import misc :\
 
 def f(x): #la funzione di cui vogliamo trovare il minimo
     return x*x+x
-def f1(x): #la sua fedele derivata
-    return 2*x+1
+def f_primo(x): #la sua fedele derivata
+    return sp.derivative(f, x)
 
-Xdata = np.linspace(-1, 1, 1000)
-Ydata = f(Xdata)
+space_start = -1.
+space_end = 1.
+cicli = 10
+x_min_at_start = 0.
+eta = 0.1 #un parametro
 
-x_min = 0.
-x_min = float(input("il valore iniziale del minimo: "))
+def migliora():
+    x_min=x_min_at_start
+    Xdata = np.linspace(space_start, space_end, 10000) #lo spazio su cui cercheremo il minimo
+    Ydata = f(Xdata)
+    serie = np.zeros(cicli) #ci servirà per tenere in memoria i valori del nostro candidato minimo
+    for i in range(cicli):
+        print("iterazione ", i)
+        print("x_min = ", x_min, '\n')
+        serie[i]=x_min
+        x_min = x_min - eta * f_primo(x_min) #alla ricerca del minimo
+    fig, ax = plt.subplots()
+    ax.plot( Xdata , Ydata, ",b" )
+    ax.plot(serie, f(serie), ".r")
+        
+while True:
+    comando = input()
+    if comando=="space start":
+        space_start=float(input("entert space start:\n"))
+    elif comando == "space end":
+        space_end = float( input("enter space end:\n") )
+    elif comando == "eta":
+        eta = float( input("enter the reward parameter:\n") )
+    elif comando == "cicli":
+        cicli = int( input("enter number of iterations:\n") )
+    elif comando == "starting point":
+        x_min_at_start = int( input("enter the starting point\n") )
+    elif comando == "start":
+        migliora()
+    elif comando == "quit":
+        break
+    else:
+        continue
 
-eta = 0. #un parametro
-eta = float(input("il valore di eta: "))
-
-cicli = 1
-cicli = int(input("quante interazioni faremo: "))
-serie = np.zeros(cicli) #ci servirà per tenere in memoria i valori del nostro candidato minimo
-
-for i in range(cicli):
-    print("iterazione ", i)
-    print("x_min = ", x_min, '\n')
-    serie[i]=x_min
-    x_min = x_min-eta*f1(x_min) #alla ricerca del minimo
-    
-fig, ax = plt.subplots()
-ax.plot( Xdata , Ydata, ",b" )
-ax.plot(serie, f(serie), "or")
     

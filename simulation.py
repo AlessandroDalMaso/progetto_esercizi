@@ -23,10 +23,10 @@ def test_generation_valid_state():
     state = generate_state()
     assert set(state) == {'.', '0'}
 
-a == 1
-b = "a"
-a=b
 def test_generation_single_alive():
     state = generate_state()
     num_of_0 = sum(1 for i in state if i=='0')
     assert num_of_0 == 1
+    
+def test_everexpanding():
+    

@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import scipy.misc as sp #scipy won't import misc :\
+import math
 
 def f(x): #la funzione di cui vogliamo trovare il minimo
     return x*x+x
